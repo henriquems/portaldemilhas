@@ -1,0 +1,42 @@
+# Ignora node_modules em qualquer lugar
+**/node_modules
+node_modules
+
+# Ignora pastas de build
+dist
+**/dist
+
+# Prisma build local
+.prisma
+**/.prisma
+
+# Arquivos de ambiente
+.env
+.env.*
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE/config
+.vscode
+.DS_Store
+*.swp
+*.swo
+
+# Arquivos temporários
+*.tmp
+*.cache
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Outras
+coverage

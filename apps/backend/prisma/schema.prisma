@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id          Int          @id @default(autoincrement())
+  nome        String
+  email       String       @unique
+  senha       String
+  cpf         String       @unique
+  telefone    String
+  status      String
+  anuncios    Anuncio[]
+  assinaturas Assinatura[]
+  perfis      Perfil[]     @relation("PerfilToUsuario")
+  cupons      Cupom[]
+
+  @@map("usuario")
+}
+
+model Perfil {
+  id        Int       @id @default(autoincrement())
+  nome      String    @unique
+  descricao String
+  usuarios  Usuario[] @relation("PerfilToUsuario")
+
+  @@map("perfil")
+}
+
+model Programa {
+  id        Int       @id @default(autoincrement())
+  descricao String
+  companhia String
+  anuncios  Anuncio[]
+
+  @@map("programa")
+}
+
+model Anuncio {
+  id               Int      @id @default(autoincrement())
+  usuarioId        Int      @map("usuario_id")
+  programaId       Int      @map("programa_id")
+  status           String
+  data             DateTime
+  quantidadeMilhas Int      @map("quantidade_milhas")
+  valor            Decimal? @db.Decimal(10, 2)
+  tipo             String
+  programa         Programa @relation(fields: [programaId], references: [id])
+  usuario          Usuario  @relation(fields: [usuarioId], references: [id])
+
+  @@map("anuncio")
+}
+
+model Plano {
+  id          Int          @id @default(autoincrement())
+  descricao   String
+  dias        Int
+  valor       Decimal      @db.Decimal(10, 2)
+  assinaturas Assinatura[]
+
+  @@map("plano")
+}
+
+model Assinatura {
+  id                  Int       @id @default(autoincrement())
+  usuarioId           Int       @map("usuario_id")
+  planoId             Int       @map("plano_id")
+  cupomId             Int?      @map("cupom_id")
+  status              String
+  valor               Decimal   @db.Decimal(10, 2)
+  valorPago           Decimal?  @map("valor_pago") @db.Decimal(10, 2)
+  pagamentoInfluencer String?   @map("pagamento_influencer")
+  dataPagamento       DateTime? @map("data_pagamento")
+  data                DateTime
+  dataVencimento      DateTime? @map("data_vencimento")
+  plano               Plano     @relation(fields: [planoId], references: [id])
+  usuario             Usuario   @relation(fields: [usuarioId], references: [id])
+  cupom               Cupom?    @relation(fields: [cupomId], references: [id])
+
+  @@map("assinatura")
+}
+
+model Cupom {
+  id             Int     @id @default(autoincrement())
+  usuarioId      Int     @map("usuario_id")
+  descricao      String
+  valorDesconto  Int     @map("valor_desconto")
+  status         String
+  usuario        Usuario @relation(fields: [usuarioId], references: [id])
+  assinaturas    Assinatura[]
+
+  @@map("cupom")
+}

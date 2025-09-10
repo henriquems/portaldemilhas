@@ -1,0 +1,17 @@
+###
+GET http://localhost:4000/ping
+
+###
+GET http://localhost:4000/programas/todos
+
+###
+POST http://localhost:4000/auth/logar
+Content-Type: application/json
+
+{
+    "login": "henriquems@gmail.com",
+    "senha": "senha"
+}
+
+###
+GET http://localhost:4000/anuncios

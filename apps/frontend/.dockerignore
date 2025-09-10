@@ -1,0 +1,46 @@
+# Ignora arquivos globais inúteis
+node_modules
+dist
+.next
+*.log
+*.tsbuildinfo
+
+# Ignora caches
+.yarn/cache
+.yarn/unplugged
+.pnp.*
+.cache
+turbo
+
+# Ignora arquivos temporários de sistema
+.DS_Store
+Thumbs.db
+
+# Ignora arquivos do editor
+.vscode
+.idea
+*.swp
+
+# Ignora arquivos do Git
+.git
+.gitignore
+
+# Ignora arquivos de configuração local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Se você quiser copiar só o .env do frontend explicitamente (como você fez no Dockerfile),
+# ignore os outros para não virem por acidente:
+.env
+
+# Evita copiar imagens grandes ou arquivos temporários
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.zip
+*.tar.gz
+*.rar

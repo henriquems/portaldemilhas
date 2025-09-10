@@ -20,5 +20,9 @@
   "workspaces": [
     "apps/*",
     "packages/*"
+  ],
+  "nohoist": [
+    "**/@mercadopago/sdk-react",
+    "**/@mercadopago/sdk-react/**"
   ]
 }

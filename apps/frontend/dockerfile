@@ -1,0 +1,45 @@
+# Stage 1: Install dependencies and build
+FROM node:20 AS builder
+
+WORKDIR /app
+
+# Copia arquivos do monorepo
+COPY package.json yarn.lock turbo.json ./
+COPY apps ./apps
+COPY packages ./packages
+
+# Copia .env do frontend (importante para build)
+COPY apps/frontend/.env ./apps/frontend/.env
+
+# Aumenta timeout do Yarn
+RUN yarn config set network-timeout 600000
+
+# Instala dependências
+RUN yarn install --frozen-lockfile
+
+# Build do core
+RUN yarn workspace @portaldemilhas/core build
+
+# Build do frontend
+RUN yarn workspace @portaldemilhas/frontend build
+
+
+# Stage 2: Produção
+FROM node:20-alpine AS production
+
+WORKDIR /app
+
+# Copia arquivos do frontend
+COPY --from=builder /app/apps/frontend/package.json ./
+COPY --from=builder /app/apps/frontend/public ./public
+COPY --from=builder /app/apps/frontend/.next ./.next
+
+# Copia dependências
+COPY --from=builder /app/node_modules ./node_modules
+
+# Copia core se usado em runtime
+COPY --from=builder /app/packages/core ./packages/core
+
+EXPOSE 3000
+
+CMD ["yarn", "start"]
