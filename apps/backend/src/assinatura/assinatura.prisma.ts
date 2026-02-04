@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Assinatura, PagamentoInfluencer, RepositorioAssinatura, StatusAssinaturaTipo, StatusUsuarioTipo, Usuario } from '@portaldemilhas/core';
+import { Assinatura, PagamentoInfluencer, RepositorioAssinatura, StatusAssinaturaTipo, StatusUsuarioTipo } from '@portaldemilhas/core';
 import { PrismaService } from 'src/db/prisma.service';
 
 @Injectable()

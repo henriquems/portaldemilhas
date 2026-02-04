@@ -6,7 +6,7 @@ export default interface RepositorioUsuario {
     recuperar(id: number): Promise<Usuario | null>;
     salvar(usuario: Usuario): Promise<void>;
     excluir(id: number): Promise<void>;
-    recuperarUsuarioPorEmail(email: string | null): Promise<Usuario>;
+    recuperarUsuarioPorEmail(email: string): Promise<Usuario | null>;
     alterarSenha(novaSenha: String, idUsuario: number): Promise<string>;
     listarUsuarioInfluencer(): Promise<Usuario[] | null>;
 }

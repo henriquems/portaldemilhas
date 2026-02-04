@@ -71,6 +71,8 @@ export default function useAssinatura() {
 
       const { id: assinaturaId, token } = resposta;
 
+      alert(token)
+
       if (token) {
         localStorage.setItem('token', token);
         iniciarSessao(token);

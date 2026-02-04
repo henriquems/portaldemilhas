@@ -1,6 +1,4 @@
 import CasoDeUso from "../../shared/CasoDeUso";
-import Assinatura from "../model/Assinatura";
-import { PagamentoInfluencer } from "../model/PagamentoInfluencer";
 import RepositorioAssinatura from "../provider/RepositorioAssinatura";
 
 type Entrada = {
